@@ -2,6 +2,7 @@ package com.qiaolu;
 
 import javax.swing.*;
 import java.awt.event.*;
+import java.net.URL;
 import java.security.PublicKey;
 import java.util.Objects;
 import java.util.Random;
@@ -92,7 +93,7 @@ public class MainFrame extends JFrame implements KeyListener, ActionListener, Mo
         getContentPane().removeAll();
 
         if (loseFlag == 2) {
-            loseLable = new JLabel(new ImageIcon(this.getClass().getResource("images/" + theme + "gameover.png").getPath()));
+            loseLable = new JLabel(new ImageIcon(this.getClass().getResource("/images/" + theme + "gameover.png")));
             loseLable.setBounds(98, 100,334, 334);
             getContentPane().add(loseLable);
             loseLable.addMouseListener(this);
@@ -100,13 +101,19 @@ public class MainFrame extends JFrame implements KeyListener, ActionListener, Mo
 
         for (int i = 0; i < 4; i++) {
             for (int j = 0; j < 4; j++) {
-                JLabel image = new JLabel(new ImageIcon(this.getClass().getResource("images/" + theme + data[i][j] + ".png").geti()));
-                image.setBounds(50 + 100 * j, 50 + 100 * i, 100, 100);
-                super.getContentPane().add(image);
+                System.out.println("/images/" + theme + data[i][j] + ".png");
+                URL imageUrl = this.getClass().getResource("/images/" + theme + data[i][j] + ".png");
+                if (imageUrl != null) {
+                    JLabel image = new JLabel(new ImageIcon(imageUrl));
+                    image.setBounds(50 + 100 * j, 50 + 100 * i, 100, 100);
+                    super.getContentPane().add(image);
+                } else {
+                    System.out.println(data[i][j] + "没有图片");
+                }
             }
         }
 
-        JLabel background = new JLabel(new ImageIcon(this.getClass().getResource("images/background.png").getPath()));
+        JLabel background = new JLabel(new ImageIcon(this.getClass().getResource("/images/" + theme + "background.png")));
         background.setBounds(40, 40, 420, 420);
         super.getContentPane().add(background);
 
